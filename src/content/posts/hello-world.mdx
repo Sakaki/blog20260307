@@ -7,6 +7,7 @@ draft: false
 ---
 
 import Callout from "../../components/mdx/Callout.tsx";
+import CodeBlock from "../../components/mdx/CodeBlock.tsx";
 
 ## はじめに
 
@@ -34,11 +35,22 @@ MDX を使うことで、Markdown の中に React コンポーネントを埋め
 
 ## コードブロック
 
+### Markdown 標準コードブロック
+
 ```ts
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("posts", ({ data }) => !data.draft);
 ```
+
+### CodeBlock コンポーネント（行番号・コピー機能付き）
+
+<CodeBlock lang="ts" filename="pages/posts/index.astro" client:load code={`import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const sorted = posts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);`} />
 
 ## まとめ
 
