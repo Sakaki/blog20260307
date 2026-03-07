@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  tags: string[];
+  slug: string;
+}
+
+const { title, date, description, tags, slug } = Astro.props;
+const formattedDate = date.toLocaleDateString("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<a href={`/posts/${slug}`} class="block group">
+  <div class="card bg-base-100 border border-base-300 shadow-sm group-hover:shadow-md transition-shadow">
+    <div class="card-body">
+      <h2 class="card-title text-base-content group-hover:text-primary transition-colors">
+        {title}
+      </h2>
+      <p class="text-sm text-base-content/60">{formattedDate}</p>
+      <p class="text-base-content/80 text-sm mt-1">{description}</p>
+      {
+        tags.length > 0 && (
+          <div class="card-actions mt-2">
+            {tags.map((tag) => (
+              <span class="badge badge-outline badge-sm">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</a>
