@@ -1,11 +1,47 @@
 ---
 title: "Hello, World!"
-description: "最初の記事です。"
+description: "Astro + daisyUI + MDX で作ったブログの最初の記事です。"
 date: 2026-03-07
-tags: ["astro", "blog"]
+tags: ["astro", "daisyui", "mdx"]
 draft: false
 ---
 
+import Callout from "../../components/mdx/Callout.tsx";
+
 ## はじめに
 
-これは動作確認用の記事です。
+このブログは **Astro 5.x** + **daisyUI 5.x** + **MDX** で構築した静的ブログです。
+
+MDX を使うことで、Markdown の中に React コンポーネントを埋め込めます。
+
+## カスタムコンポーネントの例
+
+<Callout type="info" client:load>
+  これは `info` タイプの Callout コンポーネントです。
+</Callout>
+
+<Callout type="warning" client:load>
+  これは `warning` タイプの Callout コンポーネントです。
+</Callout>
+
+<Callout type="success" client:load>
+  これは `success` タイプの Callout コンポーネントです。
+</Callout>
+
+<Callout type="error" client:load>
+  これは `error` タイプの Callout コンポーネントです。
+</Callout>
+
+## コードブロック
+
+```ts
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+```
+
+## まとめ
+
+- Astro の Content Collections で MDX を型安全に管理できる
+- daisyUI のクラスを使って手軽にスタイリングできる
+- MDX 内で React コンポーネントを使える
