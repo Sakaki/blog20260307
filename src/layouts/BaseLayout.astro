@@ -18,6 +18,9 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    {description && <meta property="og:description" content={description} />}
   </head>
   <body class="min-h-screen flex flex-col bg-base-100 text-base-content">
     <Header />
