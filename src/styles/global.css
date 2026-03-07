@@ -3,3 +3,8 @@
   themes: light --default;
 }
 @plugin "@tailwindcss/typography";
+
+.prose {
+  --tw-prose-body: var(--color-base-content);
+  --tw-prose-lists: var(--color-base-content);
+}
