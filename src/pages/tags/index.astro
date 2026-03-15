@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+
+// Map<正規化タグ, { displayName: string; count: number }>
+const tagMap = new Map<string, { displayName: string; count: number }>();
+
+for (const post of allPosts) {
+  for (const tag of post.data.tags) {
+    const normalized = tag.toLowerCase();
+    const existing = tagMap.get(normalized);
+    if (existing) {
+      existing.count++;
+    } else {
+      tagMap.set(normalized, { displayName: tag, count: 1 });
+    }
+  }
+}
+
+// アルファベット順にソート
+const tags = [...tagMap.entries()]
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([slug, { displayName, count }]) => ({ slug, displayName, count }));
+---
+
+<BaseLayout title="タグ一覧 | Blog" description="全タグの一覧">
+  <h1 class="text-4xl font-bold text-base-content mb-8">タグ一覧</h1>
+  {
+    tags.length === 0 ? (
+      <p class="text-base-content/60">タグがまだありません。</p>
+    ) : (
+      <div class="flex flex-wrap gap-3">
+        {tags.map((tag) => (
+          <a
+            href={`/tags/${tag.slug}`}
+            class="badge badge-outline badge-lg gap-1 hover:badge-primary transition-colors"
+          >
+            {tag.displayName}
+            <span class="badge badge-sm badge-neutral">{tag.count}</span>
+          </a>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

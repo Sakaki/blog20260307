@@ -1,5 +1,12 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   frontmatter: {
@@ -8,9 +15,10 @@ interface Props {
     tags: string[];
     description: string;
   };
+  headings?: Heading[];
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings = [] } = Astro.props;
 const { title, date, tags, description } = frontmatter;
 const formattedDate = date.toLocaleDateString("ja-JP", {
   year: "numeric",
@@ -28,12 +36,18 @@ const formattedDate = date.toLocaleDateString("ja-JP", {
         tags.length > 0 && (
           <div class="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span class="badge badge-outline badge-sm">{tag}</span>
+              <a
+                href={`/tags/${tag.toLowerCase()}`}
+                class="badge badge-outline badge-sm hover:badge-primary transition-colors"
+              >
+                {tag}
+              </a>
             ))}
           </div>
         )
       }
     </header>
+    <TableOfContents headings={headings} />
     <div class="prose prose-base max-w-none">
       <slot />
     </div>
