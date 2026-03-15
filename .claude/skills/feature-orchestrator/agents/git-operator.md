@@ -174,6 +174,21 @@ EOF
 
 GitHub CLI が利用できない場合は、上記のPR本文をそのままユーザーに提示する。
 
+### Step 6: PR のマージとローカル main の更新
+
+PR 作成後、自動的にマージしてローカルを最新化する。
+
+```bash
+# PR をマージ
+gh pr merge <pr_number> --merge
+
+# ローカル main を最新化
+git checkout main
+git pull origin main
+```
+
+マージに失敗した場合（CI チェック失敗、コンフリクトなど）はエラー内容をユーザーに報告する。
+
 ---
 
 ## 出力フォーマット

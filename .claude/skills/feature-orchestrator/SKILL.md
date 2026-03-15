@@ -34,7 +34,7 @@ description: >
 1. Designer     ──→ docs/adr/NNNN-*.md, docs/design/*.md
       │
       ▼
-2. Coder        ──→ src/ 以下に実装
+2. Coder        ──→ src/ 以下に実装（UI変更時は Playwright で視覚検証）
       │
       ▼
 3. Tester       ──→ tests/ 以下にテスト作成・実行

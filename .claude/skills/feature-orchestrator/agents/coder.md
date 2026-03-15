@@ -68,6 +68,83 @@ cat <repo_root>/go.mod  # Go
 アプリケーション起動時のDIコンテナ設定またはファクトリ関数を実装する。
 フレームワーク固有のDIがある場合はそれを使用する。
 
+### Step 5: ビジュアル検証（UI/デザイン変更時のみ）
+
+タスクが Web サイトの見た目に影響する変更（コンポーネント、CSS、レイアウト、
+スタイリングなど）を含む場合、コードを書いただけでは期待通りに表示されるか
+わからない。Playwright を使って実際のレンダリング結果を目視確認し、問題が
+あればこのステップ内で修正を完了させる。
+
+バックエンドロジックのみの変更や、テストコードのみの変更など、
+画面に影響しないタスクではこのステップをスキップする。
+
+#### 5-1. ローカル dev サーバーの起動
+
+```bash
+# バックグラウンドで dev サーバーを起動する
+npm run dev &
+DEV_PID=$!
+# サーバーが起動するまで待機
+sleep 3
+```
+
+本番環境へのデプロイはユーザーから明示的に指示があるまで行わない。
+検証はすべてローカルの dev サーバー（通常 http://localhost:4321）で行う。
+
+#### 5-2. PC 幅でのスクリーンショット撮影
+
+Playwright MCP を使い、PC 画面サイズ（1440x900）で対象ページを開き、
+変更箇所が含まれる領域のスクリーンショットを撮影する。
+
+```
+1. browser_resize: width=1440, height=900
+2. browser_navigate: 変更が反映されるページの URL
+3. browser_take_screenshot: fullPage=true で撮影
+```
+
+#### 5-3. スマホ幅でのスクリーンショット撮影
+
+モバイル画面サイズ（375x812）でも同様に確認する。
+
+```
+1. browser_resize: width=375, height=812
+2. browser_navigate: 同じ URL
+3. browser_take_screenshot: fullPage=true で撮影
+```
+
+#### 5-4. 問題の検出と修正
+
+スクリーンショットを確認し、以下の観点で問題がないかチェックする：
+
+- 変更が実際に画面に反映されているか
+- レイアウト崩れ、要素のはみ出し、意図しない余白がないか
+- PC / スマホ両方で適切に表示されているか
+
+問題を発見した場合は、原因を調査して修正し、再度スクリーンショットを
+撮影して確認する。修正→確認のループは最大 3 回まで行う。
+
+CSS の詳細を調べたい場合は `browser_evaluate` で computed style を取得する：
+
+```javascript
+// 例: 要素のスタイルを調査
+() => {
+  const el = document.querySelector("<セレクタ>");
+  return {
+    computedWidth: getComputedStyle(el).width,
+    computedHeight: getComputedStyle(el).height,
+    // ... 調査したいプロパティ
+  };
+};
+```
+
+#### 5-5. dev サーバーの停止
+
+検証が完了したら dev サーバーを停止する。
+
+```bash
+kill $DEV_PID 2>/dev/null
+```
+
 ---
 
 ## 実装ルール
@@ -150,6 +227,11 @@ CODER_OUTPUT:
     adapter: [<ファイルパスリスト>]
     infra: [<ファイルパスリスト>]
   modified_files: [<既存ファイルを変更した場合>]
+  visual_verification:
+    performed: true | false
+    screenshots: [<撮影したスクリーンショットのパス>]
+    issues_found: [<発見した問題と修正内容>]
+    final_result: pass | fail
   skipped: [<実装を保留した箇所とその理由>]
   notes: <テスターへの申し送り（テストが難しい箇所、モックが必要な外部依存など）>
   error: <status=error/partialの場合>

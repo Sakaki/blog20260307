@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import TableOfContents from "../components/TableOfContents.astro";
+import TableOfContentsSidebar from "../components/TableOfContentsSidebar.astro";
 
 interface Heading {
   depth: number;
@@ -25,31 +26,46 @@ const formattedDate = date.toLocaleDateString("ja-JP", {
   month: "long",
   day: "numeric",
 });
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasToc = tocHeadings.length > 0;
 ---
 
-<BaseLayout title={title} description={description}>
-  <article class="max-w-none">
-    <header class="mb-8 border-b border-base-300 pb-6">
-      <h1 class="text-4xl font-bold text-base-content mb-3">{title}</h1>
-      <p class="text-base-content/60 text-sm mb-3">{formattedDate}</p>
-      {
-        tags.length > 0 && (
-          <div class="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <a
-                href={`/tags/${tag.toLowerCase()}`}
-                class="badge badge-outline badge-sm hover:badge-primary transition-colors"
-              >
-                {tag}
-              </a>
-            ))}
+<BaseLayout title={title} description={description} maxWidth={hasToc ? "max-w-6xl" : "max-w-4xl"}>
+  <div class={hasToc ? "lg:grid lg:grid-cols-[1fr_16rem] lg:gap-8" : ""}>
+    <article class="max-w-none">
+      <header class="mb-8 border-b border-base-300 pb-6">
+        <h1 class="text-4xl font-bold text-base-content mb-3">{title}</h1>
+        <p class="text-base-content/60 text-sm mb-3">{formattedDate}</p>
+        {
+          tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <a
+                  href={`/tags/${tag.toLowerCase()}`}
+                  class="badge badge-outline badge-sm hover:badge-primary transition-colors"
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </header>
+      <div class="lg:hidden">
+        <TableOfContents headings={headings} />
+      </div>
+      <div class="prose prose-base max-w-none">
+        <slot />
+      </div>
+    </article>
+    {
+      hasToc && (
+        <aside class="hidden lg:block">
+          <div class="sticky top-8">
+            <TableOfContentsSidebar headings={headings} />
           </div>
-        )
-      }
-    </header>
-    <TableOfContents headings={headings} />
-    <div class="prose prose-base max-w-none">
-      <slot />
-    </div>
-  </article>
+        </aside>
+      )
+    }
+  </div>
 </BaseLayout>
