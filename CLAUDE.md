@@ -6,29 +6,16 @@ Astro + TypeScript + daisyUI を使った静的ブログシステム。
 記事は MDX 形式で管理し、MDX 内で React コンポーネントを利用できる。
 ビルド成果物を自宅サーバーの Nginx に配置してホスティングする。
 
-## GitHub Project
-
-- **Project Name**: blog20260307
-- **Project Number**: 12
-- **Owner**: Sakaki
-
 ## 開発フロー
 
-このリポジトリは Claude Code 駆動開発フローで管理されています。
-
-```
-Backlog → Ready → In Progress → Done
-                             ↘ Fail（最大3回リトライ後に差し戻し）
-```
+- feature ブランチで作業し、完了後は main にマージして push する
+- GitHub PR は使用しない（個人開発のため）
 
 ### コマンド
 
-| コマンド          | 説明                                         |
-| ----------------- | -------------------------------------------- |
-| `/create-issues`  | `docs/` を読み込んで Issue を一括生成        |
-| `/review-backlog` | Backlog の Issue をレビューして Ready に昇格 |
-| `/run-next`       | 優先度の高い Ready Issue を1件実行           |
-| `/deploy`         | ビルドして自宅サーバー（Nginx）にデプロイ    |
+| コマンド  | 説明                                      |
+| --------- | ----------------------------------------- |
+| `/deploy` | ビルドして自宅サーバー（Nginx）にデプロイ |
 
 ## 技術スタック
 

@@ -1,11 +1,11 @@
 # Git Operator Agent
 
-GitHub Flow に従ってブランチ作成・コミット・PR作成を行う。
+feature ブランチでの作業を main にマージして push する。
 
 ## 役割
 
-レビューが承認されたコードを GitHub Flow のブランチ戦略で
-リモートリポジトリに反映する。
+レビューが承認されたコードを feature ブランチにコミットし、
+main にマージしてリモートに push する。
 
 ---
 
@@ -30,7 +30,7 @@ PREVIOUS_OUTPUT:
   REVIEWER_OUTPUT:
     needs_revision: false
     approval_summary: <承認サマリー>
-    notes: <PRに含めてほしい情報>
+    notes: <特記事項>
 ```
 
 ---
@@ -118,76 +118,21 @@ git commit -m "test(<feature_name>): add unit and integration tests"
 - `test(user): add unit tests for CreateUserUseCase`
 - `refactor(user): extract email validation to value object`
 
-### Step 4: リモートへ push
+### Step 4: main にマージして push
 
 ```bash
-git push origin feature/<feature_name>
-```
-
-### Step 5: PR 作成
-
-GitHub CLI が利用可能な場合:
-
-```bash
-gh pr create \
-  --title "feat: <機能の要約>" \
-  --body "$(cat <<'EOF'
-## 概要
-<description の内容>
-
-## 変更内容
-
-### 追加ファイル
-<created_files を箇条書き>
-
-### 変更ファイル
-<modified_files を箇条書き>
-
-## 設計
-
-詳細は以下を参照:
-- ADR: <adr_path>
-- 設計書: <design_doc_path>
-
-## テスト結果
-
-| 種別 | 合計 | 成功 | 失敗 |
-|---|---|---|---|
-| unit | <total> | <passed> | <failed> |
-| integration | <total> | <passed> | <failed> |
-
-## レビュー観点
-
-<reviewer_notes の内容>
-
-## チェックリスト
-
-- [x] クリーンアーキテクチャのレイヤー依存が正しい
-- [x] unit / integration テストがすべて green
-- [x] ADR に設計判断が記録されている
-- [x] コードレビュー（自動）承認済み
-EOF
-)" \
-  --base main \
-  --head feature/<feature_name>
-```
-
-GitHub CLI が利用できない場合は、上記のPR本文をそのままユーザーに提示する。
-
-### Step 6: PR のマージとローカル main の更新
-
-PR 作成後、自動的にマージしてローカルを最新化する。
-
-```bash
-# PR をマージ
-gh pr merge <pr_number> --merge
-
-# ローカル main を最新化
+# main に切り替えて最新化
 git checkout main
 git pull origin main
+
+# feature ブランチをマージ
+git merge feature/<feature_name>
+
+# リモートに push
+git push origin main
 ```
 
-マージに失敗した場合（CI チェック失敗、コンフリクトなど）はエラー内容をユーザーに報告する。
+マージにコンフリクトが発生した場合はエラー内容をユーザーに報告する。
 
 ---
 
@@ -200,7 +145,7 @@ GIT_OPERATOR_OUTPUT:
   commits:
     - hash: <short hash>
       message: <コミットメッセージ>
-  pr_url: <URL or "GitHub CLIが利用できないため手動作成が必要">
-  pr_body: <PR本文（手動作成が必要な場合）>
+  merged_to: main
+  pushed: true | false
   error: <status=errorの場合>
 ```
