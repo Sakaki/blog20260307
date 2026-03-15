@@ -49,7 +49,7 @@ const posts = await getCollection("posts", ({ data }) => !data.draft);
 
 const posts = await getCollection("posts", ({ data }) => !data.draft);
 const sorted = posts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+(a, b) => b.data.date.getTime() - a.data.date.getTime()
 );`} />
 
 ## まとめ

@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "deploy": "npm run build && rsync -avz --delete -e \"ssh -i ~/.ssh/id_rsa\" dist/ root@192.168.20.30:/var/www/chiya/",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
@@ -16,8 +22,22 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
+  "lint-staged": {
+    "*.{ts,tsx,astro}": "eslint --fix",
+    "*.{ts,tsx,astro,md,mdx,json,css}": "prettier --write"
+  },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-astro": "^1.6.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.0.0"
   }

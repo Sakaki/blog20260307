@@ -12,6 +12,18 @@ node_modules/
 .env.*
 !.env.example
 
-# OS・エディタ
+# ログ
+npm-debug.log*
+*.log
+
+# TypeScript インクリメンタルビルド
+*.tsbuildinfo
+
+# エディタ
+.vscode/
+
+# OS
 .DS_Store
 Thumbs.db
+desktop.ini
+ehthumbs.db
