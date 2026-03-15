@@ -15,12 +15,13 @@ interface Props {
     date: Date;
     tags: string[];
     description: string;
+    heroImage?: string;
   };
   headings?: Heading[];
 }
 
 const { frontmatter, headings = [] } = Astro.props;
-const { title, date, tags, description } = frontmatter;
+const { title, date, tags, description, heroImage } = frontmatter;
 const formattedDate = date.toLocaleDateString("ja-JP", {
   year: "numeric",
   month: "long",
@@ -47,6 +48,13 @@ const hasToc = tocHeadings.length > 0;
                   {tag}
                 </a>
               ))}
+            </div>
+          )
+        }
+        {
+          heroImage && (
+            <div class="mt-6 flex justify-center">
+              <img src={heroImage} alt={title} class="max-w-[80%] rounded-lg shadow-md" />
             </div>
           )
         }
