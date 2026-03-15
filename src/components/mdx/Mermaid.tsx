@@ -80,7 +80,10 @@ export default function Mermaid({ chart }: MermaidProps): JSX.Element {
     <div className="my-6 flex justify-center overflow-x-auto rounded-lg border border-base-300 bg-base-100 p-4">
       {/* dangerouslySetInnerHTML: mermaid.render() が返す SVG 文字列を注入する。
           入力は自前の MDX コンテンツのみで XSS リスクは限定的（ADR 0001 参照）。 */}
-      <div className="[&>svg]:w-full [&>svg]:h-auto" dangerouslySetInnerHTML={{ __html: svg }} />
+      <div
+        className="w-full [&>svg]:w-full [&>svg]:h-auto [&>svg]:![max-width:none]"
+        dangerouslySetInnerHTML={{ __html: svg }}
+      />
     </div>
   );
 }
