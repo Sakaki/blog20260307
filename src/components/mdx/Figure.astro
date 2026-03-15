@@ -1,0 +1,27 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  sourceUrl?: string;
+  sourceName?: string;
+}
+
+const { src, alt, caption, sourceUrl, sourceName } = Astro.props;
+const displayCaption = caption ?? alt;
+---
+
+<figure class="my-6 flex flex-col items-center">
+  <figcaption class="text-sm text-base-content/60 mb-2">{displayCaption}</figcaption>
+  <img src={src} alt={alt} class="max-w-[80%] rounded-lg shadow-md" />
+  {
+    sourceUrl && sourceName && (
+      <p class="text-sm text-base-content/50 mt-1 italic">
+        出典:{" "}
+        <a href={sourceUrl} class="hover:underline">
+          {sourceName}
+        </a>
+      </p>
+    )
+  }
+</figure>
