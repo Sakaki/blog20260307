@@ -28,7 +28,12 @@ const formattedDate = date.toLocaleDateString("ja-JP", {
         tags.length > 0 && (
           <div class="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span class="badge badge-outline badge-sm">{tag}</span>
+              <a
+                href={`/tags/${tag.toLowerCase()}`}
+                class="badge badge-outline badge-sm hover:badge-primary transition-colors"
+              >
+                {tag}
+              </a>
             ))}
           </div>
         )
