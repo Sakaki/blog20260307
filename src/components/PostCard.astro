@@ -36,7 +36,7 @@ const formattedDate = date.toLocaleDateString("ja-JP", {
           {tags.map((tag) => (
             <a
               href={`/tags/${tag.toLowerCase()}`}
-              class="badge badge-outline badge-sm hover:badge-primary transition-colors"
+              class="badge badge-outline badge-sm border-primary text-primary hover:badge-primary transition-colors"
             >
               {tag}
             </a>

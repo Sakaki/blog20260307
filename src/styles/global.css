@@ -4,7 +4,19 @@
 }
 @plugin "@tailwindcss/typography";
 
+[data-theme="light"] {
+  --color-primary: oklch(0.45 0.1 150);
+  --color-primary-content: oklch(1 0 0);
+}
+
 .prose {
   --tw-prose-body: var(--color-base-content);
   --tw-prose-lists: var(--color-base-content);
+  --tw-prose-headings: var(--color-base-content);
+  --tw-prose-links: var(--color-primary);
+}
+
+.prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 0.75rem;
 }
