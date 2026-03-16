@@ -13,7 +13,7 @@ const { title, description, maxWidth = "max-w-4xl" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="ja" data-theme="light">
+<html lang="ja" data-theme="terminal">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,8 +22,14 @@ const { title, description, maxWidth = "max-w-4xl" } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
     {description && <meta property="og:description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="min-h-screen flex flex-col bg-base-100 text-base-content">
+  <body class="min-h-screen flex flex-col bg-base-100 text-base-content font-mono">
     <Header />
     <main class={`flex-1 container mx-auto px-4 py-8 ${maxWidth}`}>
       <slot />

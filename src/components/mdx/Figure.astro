@@ -12,13 +12,15 @@ const displayCaption = caption ?? alt;
 ---
 
 <figure class="my-6 flex flex-col items-center">
-  <figcaption class="text-sm text-base-content/60 mb-2">{displayCaption}</figcaption>
-  <img src={src} alt={alt} class="max-w-[80%] rounded-lg shadow-md" />
+  <figcaption class="text-xs text-[var(--text-secondary)] mb-2 text-center">
+    {displayCaption}
+  </figcaption>
+  <img src={src} alt={alt} class="max-w-[80%] rounded border border-[var(--border-color)]" />
   {
     sourceUrl && sourceName && (
-      <p class="text-sm text-base-content/50 mt-1 italic">
+      <p class="text-xs text-[var(--text-secondary)] opacity-60 mt-1 italic">
         出典:{" "}
-        <a href={sourceUrl} class="hover:underline">
+        <a href={sourceUrl} class="text-[var(--link-color)] hover:underline">
           {sourceName}
         </a>
       </p>

@@ -15,14 +15,19 @@ const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
 {
   tocHeadings.length > 0 && (
-    <div class="collapse collapse-arrow bg-base-200 mb-8">
+    <div class="collapse collapse-arrow bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded mb-8">
       <input type="checkbox" checked />
-      <div class="collapse-title font-semibold text-base-content">目次</div>
+      <div class="collapse-title font-semibold text-[var(--text-primary)] font-mono text-sm">
+        // 目次
+      </div>
       <div class="collapse-content">
         <ul class="list-none p-0 m-0">
           {tocHeadings.map((heading) => (
             <li class={heading.depth === 3 ? "ml-4" : ""}>
-              <a href={`#${heading.slug}`} class="link link-hover text-sm leading-relaxed">
+              <a
+                href={`#${heading.slug}`}
+                class="text-sm leading-relaxed text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
+              >
                 {heading.text}
               </a>
             </li>
