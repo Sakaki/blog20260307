@@ -58,7 +58,7 @@
 
 /* h3 */
 .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
   content: "### ";
