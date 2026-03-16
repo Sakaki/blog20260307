@@ -6,7 +6,7 @@ interface MermaidProps {
 }
 
 /** mermaid.initialize() に渡す設定。自動スキャンを無効化し手動 render() のみ使用する。 */
-const MERMAID_CONFIG = { startOnLoad: false, theme: "default" } as const;
+const MERMAID_CONFIG = { startOnLoad: false, theme: "dark" } as const;
 
 /** mermaid.render() が Error 以外をスローした場合のフォールバックメッセージ */
 const RENDER_FALLBACK_MESSAGE = "Mermaid レンダリングに失敗しました";
@@ -77,7 +77,7 @@ export default function Mermaid({ chart }: MermaidProps): JSX.Element {
 
   return (
     // overflow-x-auto でダイアグラムが横幅を超えた場合にスクロール対応する
-    <div className="my-6 flex justify-center overflow-x-auto rounded-lg border border-base-300 bg-base-100 p-4">
+    <div className="my-6 flex justify-center overflow-x-auto rounded border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
       {/* dangerouslySetInnerHTML: mermaid.render() が返す SVG 文字列を注入する。
           入力は自前の MDX コンテンツのみで XSS リスクは限定的（ADR 0001 参照）。 */}
       <div
