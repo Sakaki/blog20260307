@@ -2,6 +2,8 @@
 import BaseLayout from "./BaseLayout.astro";
 import TableOfContents from "../components/TableOfContents.astro";
 import TableOfContentsSidebar from "../components/TableOfContentsSidebar.astro";
+import SidebarRecentPosts from "../components/SidebarRecentPosts.astro";
+import SidebarTags from "../components/SidebarTags.astro";
 
 interface Heading {
   depth: number;
@@ -29,6 +31,7 @@ const formattedDate = date.toLocaleDateString("ja-JP", {
 });
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const hasToc = tocHeadings.length > 0;
+const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, "");
 ---
 
 <BaseLayout title={title} description={description} maxWidth={hasToc ? "max-w-6xl" : "max-w-4xl"}>
@@ -43,7 +46,7 @@ const hasToc = tocHeadings.length > 0;
               {tags.map((tag) => (
                 <a
                   href={`/tags/${tag.toLowerCase()}`}
-                  class="badge badge-outline badge-sm hover:badge-primary transition-colors"
+                  class="badge badge-outline badge-sm border-primary text-primary hover:badge-primary transition-colors"
                 >
                   {tag}
                 </a>
@@ -69,8 +72,10 @@ const hasToc = tocHeadings.length > 0;
     {
       hasToc && (
         <aside class="hidden lg:block">
-          <div class="sticky top-8">
+          <div class="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <TableOfContentsSidebar headings={headings} />
+            <SidebarRecentPosts currentSlug={currentSlug} />
+            <SidebarTags />
           </div>
         </aside>
       )
