@@ -16,13 +16,13 @@ const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 {
   tocHeadings.length > 0 && (
     <nav class="py-4">
-      <h2 class="font-semibold text-base-content text-base mb-3">目次</h2>
+      <p class="sidebar-label">// 目次</p>
       <ul class="list-none p-0 m-0 space-y-1">
         {tocHeadings.map((heading) => (
-          <li class={heading.depth === 3 ? "ml-4" : ""}>
+          <li class={heading.depth === 3 ? "ml-3" : ""}>
             <a
               href={`#${heading.slug}`}
-              class="link link-hover text-sm leading-relaxed text-base-content/70 hover:text-base-content"
+              class="toc-link block text-sm leading-relaxed text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
             >
               {heading.text}
             </a>

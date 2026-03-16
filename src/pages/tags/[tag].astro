@@ -38,15 +38,20 @@ const { displayName, posts } = Astro.props;
   description={`タグ「${displayName}」の記事一覧`}
 >
   <div class="mb-8">
-    <a href="/tags" class="link link-hover text-sm text-base-content/60"> &larr; タグ一覧に戻る </a>
+    <a
+      href="/tags"
+      class="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
+    >
+      &larr; タグ一覧に戻る
+    </a>
   </div>
-  <h1 class="text-4xl font-bold text-base-content mb-8">
-    <span class="badge badge-outline badge-lg mr-2">{displayName}</span>
-    の記事一覧
+  <h1 class="text-2xl font-bold text-[var(--text-primary)] mb-8">
+    <span class="tag-chip text-sm !px-3 !py-1 mr-2">{displayName}</span>
+    <span class="text-[var(--text-secondary)]">の記事一覧</span>
   </h1>
   {
     posts.length === 0 ? (
-      <p class="text-base-content/60">記事がまだありません。</p>
+      <p class="text-[var(--text-secondary)]">記事がまだありません。</p>
     ) : (
       <div class="grid gap-4">
         {posts.map((post) => (

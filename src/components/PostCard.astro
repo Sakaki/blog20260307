@@ -15,29 +15,23 @@ const formattedDate = date.toLocaleDateString("ja-JP", {
 });
 ---
 
-<div
-  class="group relative card bg-base-100 border border-base-300 shadow-sm hover:shadow-md transition-shadow"
->
+<div class="group relative post-card">
   <a href={`/posts/${slug}`} class="absolute inset-0 z-10" aria-label={title}></a>
-  <div class="card-body">
-    <h2 class="card-title text-base-content group-hover:text-primary transition-colors">
-      {title}
-    </h2>
-    <p class="text-sm text-base-content/60">{formattedDate}</p>
-    <p
-      class="text-sm mt-1"
-      style="color: color-mix(in oklch, var(--color-base-content) 70%, var(--color-base-100));"
+  <div>
+    <h2
+      class="text-base font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors"
     >
-      {description}
+      <span class="text-[var(--accent)] opacity-70">{">"} </span>{title}
+    </h2>
+    <p class="text-xs text-[var(--text-secondary)] mt-1 date-terminal font-mono">
+      {formattedDate}
     </p>
+    <p class="text-sm text-[var(--text-secondary)] mt-2">{description}</p>
     {
       tags.length > 0 && (
-        <div class="card-actions mt-2 relative z-20">
+        <div class="flex flex-wrap gap-2 mt-3 relative z-20">
           {tags.map((tag) => (
-            <a
-              href={`/tags/${tag.toLowerCase()}`}
-              class="badge badge-outline badge-sm border-primary text-primary hover:badge-primary transition-colors"
-            >
+            <a href={`/tags/${tag.toLowerCase()}`} class="tag-chip">
               {tag}
             </a>
           ))}

@@ -1,22 +1,188 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default;
+  themes: terminal --default;
 }
 @plugin "@tailwindcss/typography";
 
-[data-theme="light"] {
-  --color-primary: oklch(0.45 0.1 150);
-  --color-primary-content: oklch(1 0 0);
+@theme {
+  --font-mono: "JetBrains Mono", "Fira Code", "Noto Sans JP", monospace;
+  --font-sans: "JetBrains Mono", "Fira Code", "Noto Sans JP", monospace;
 }
 
-.prose {
-  --tw-prose-body: var(--color-base-content);
-  --tw-prose-lists: var(--color-base-content);
-  --tw-prose-headings: var(--color-base-content);
-  --tw-prose-links: var(--color-primary);
+[data-theme="terminal"] {
+  --color-primary: #21d07a;
+  --color-primary-content: #0e1117;
+  --color-secondary: #58a6ff;
+  --color-base-100: #0e1117;
+  --color-base-200: #161b22;
+  --color-base-300: #21262d;
+  --color-base-content: #e6edf3;
+  --color-neutral: #21262d;
+  --color-neutral-content: #e6edf3;
+
+  /* Terminal theme custom properties */
+  --bg-primary: #0e1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --border-color: #30363d;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent: #21d07a;
+  --accent-dim: #0d4a2e;
+  --link-color: #58a6ff;
+  --code-text: #79c0ff;
 }
 
+/* ===== Typography ===== */
+
+/* h1: article title prefix */
+.prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--text-primary);
+  font-size: 1.6rem;
+}
+.prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
+  content: "# ";
+  color: var(--accent);
+}
+
+/* h2: section heading */
 .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  border-left: 3px solid var(--color-primary);
-  padding-left: 0.75rem;
+  color: var(--accent);
+  border-left: none;
+  padding-left: 0;
+}
+.prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
+  content: "## ";
+  opacity: 0.7;
+}
+
+/* h3 */
+.prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--text-secondary);
+}
+.prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
+  content: "### ";
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+/* Prose body & links */
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-lists: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--link-color);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-counters: var(--text-secondary);
+  --tw-prose-bullets: var(--text-secondary);
+  --tw-prose-hr: var(--border-color);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-quote-borders: var(--border-color);
+  --tw-prose-code: var(--code-text);
+  --tw-prose-pre-code: var(--code-text);
+  --tw-prose-pre-bg: var(--bg-secondary);
+  --tw-prose-th-borders: var(--border-color);
+  --tw-prose-td-borders: var(--border-color);
+  line-height: 1.8;
+}
+
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  text-decoration: none;
+}
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover {
+  text-decoration: underline;
+}
+
+/* Code blocks */
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 12px 16px;
+}
+
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  color: var(--code-text);
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+.prose :where(:not(pre) > code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.85em;
+}
+
+/* Images */
+.prose :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+/* hr */
+.prose :where(hr):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  border-top: 1px solid var(--border-color);
+}
+
+/* ===== Page title prefix (non-prose h1) ===== */
+.page-title::before {
+  content: "# ";
+  color: var(--accent);
+}
+
+/* ===== Date prefix ===== */
+.date-terminal::before {
+  content: "$ date → ";
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+/* ===== Tag chip ===== */
+.tag-chip {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 3px;
+  background: transparent;
+  transition: background-color 0.15s;
+  text-decoration: none;
+}
+.tag-chip:hover {
+  background: var(--accent-dim);
+}
+
+/* ===== Post card ===== */
+.post-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 16px 20px;
+  transition: border-color 0.15s;
+}
+.post-card:hover {
+  border-color: var(--accent);
+}
+
+/* ===== TOC sidebar active state ===== */
+.toc-link {
+  border-left: 2px solid var(--border-color);
+  padding-left: 8px;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.toc-link.active {
+  border-left-color: var(--accent);
+  color: var(--text-primary);
+}
+
+/* ===== Sidebar section label ===== */
+.sidebar-label {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-family: "JetBrains Mono", monospace;
+  margin-bottom: 0.75rem;
 }
