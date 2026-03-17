@@ -188,6 +188,38 @@
   margin-bottom: 0.75rem;
 }
 
+/* ===== BIO スプラッシュ（ASCII アート） ===== */
+.bio-splash {
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+.bio-ascii {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--accent);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  white-space: pre;
+  overflow-x: visible;
+}
+.bio-splash-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-align: right;
+  margin-top: -2px;
+  padding-right: 2px;
+  letter-spacing: 0.04em;
+}
+.bio-splash-rule {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 10px 0 14px;
+}
+
 /* ===== BIO セクション ===== */
 .bio-section {
   padding: 20px 0 24px;
@@ -404,6 +436,10 @@
 
 /* モバイル対応 */
 @media (max-width: 640px) {
+  .bio-ascii {
+    font-size: 0.52rem;
+    line-height: 1.35;
+  }
   .bio-key {
     width: 4rem;
   }
