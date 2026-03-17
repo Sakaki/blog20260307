@@ -7,9 +7,10 @@ interface Props {
   title: string;
   description?: string;
   maxWidth?: string;
+  pageTitle?: string;
 }
 
-const { title, description, maxWidth = "max-w-4xl" } = Astro.props;
+const { title, description, maxWidth = "max-w-4xl", pageTitle } = Astro.props;
 ---
 
 <!doctype html>
@@ -30,10 +31,44 @@ const { title, description, maxWidth = "max-w-4xl" } = Astro.props;
     />
   </head>
   <body class="min-h-screen flex flex-col bg-base-100 text-base-content font-mono">
-    <Header />
+    <Header pageTitle={pageTitle} />
     <main class={`flex-1 container mx-auto px-4 py-8 ${maxWidth}`}>
       <slot />
     </main>
     <Footer />
+    <!-- トップに戻るボタン -->
+    <button id="back-to-top" class="back-to-top" aria-label="ページトップに戻る">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"
+        ></path>
+      </svg>
+    </button>
+    <script>
+      const backToTop = document.getElementById("back-to-top");
+      if (backToTop) {
+        const SHOW_THRESHOLD = 300;
+        let isVisible = false;
+
+        function updateBackToTop(): void {
+          const shouldShow = window.scrollY > SHOW_THRESHOLD;
+          if (shouldShow === isVisible) return;
+          isVisible = shouldShow;
+          backToTop!.classList.toggle("back-to-top--visible", isVisible);
+        }
+
+        window.addEventListener("scroll", updateBackToTop, { passive: true });
+        updateBackToTop();
+
+        backToTop.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    </script>
   </body>
 </html>

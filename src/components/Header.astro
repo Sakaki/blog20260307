@@ -1,12 +1,28 @@
 ---
+interface Props {
+  pageTitle?: string;
+}
 
+const { pageTitle } = Astro.props;
 ---
 
-<header class="navbar bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
-  <div class="navbar-start">
-    <a href="/" class="btn btn-ghost text-lg font-mono font-bold text-[var(--accent)]">
+<header
+  id="site-header"
+  class="navbar sticky top-0 z-50 bg-[var(--bg-primary)] border-b border-[var(--border-color)] transition-all duration-200"
+  data-page-title={pageTitle ?? ""}
+>
+  <div class="navbar-start overflow-hidden">
+    <a
+      href="/"
+      class="header-site-title btn btn-ghost text-lg font-mono font-bold text-[var(--accent)] transition-opacity duration-200"
+    >
       ~/sakaki333.dev
     </a>
+    <span
+      class="header-page-title font-mono text-sm font-bold text-[var(--text-primary)] truncate opacity-0 absolute pointer-events-none transition-opacity duration-200"
+    >
+      {pageTitle}
+    </span>
   </div>
   <div class="navbar-end">
     <!-- モバイル: ハンバーガーメニュー -->
@@ -64,3 +80,38 @@
     </nav>
   </div>
 </header>
+
+<script>
+  const header = document.getElementById("site-header");
+  if (header) {
+    const siteTitle = header.querySelector<HTMLElement>(".header-site-title");
+    const pageTitle = header.querySelector<HTMLElement>(".header-page-title");
+    const pageTitleText = header.dataset.pageTitle;
+    const SCROLL_THRESHOLD = 80;
+
+    let isCompact = false;
+
+    function updateHeader(): void {
+      const shouldBeCompact = window.scrollY > SCROLL_THRESHOLD;
+      if (shouldBeCompact === isCompact) return;
+      isCompact = shouldBeCompact;
+
+      if (isCompact && pageTitleText) {
+        header!.classList.add("header--compact");
+        siteTitle!.classList.add("opacity-0", "pointer-events-none", "absolute");
+        siteTitle!.classList.remove("opacity-100");
+        pageTitle!.classList.remove("opacity-0", "pointer-events-none", "absolute");
+        pageTitle!.classList.add("opacity-100");
+      } else {
+        header!.classList.remove("header--compact");
+        siteTitle!.classList.remove("opacity-0", "pointer-events-none", "absolute");
+        siteTitle!.classList.add("opacity-100");
+        pageTitle!.classList.add("opacity-0", "pointer-events-none", "absolute");
+        pageTitle!.classList.remove("opacity-100");
+      }
+    }
+
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    updateHeader();
+  }
+</script>

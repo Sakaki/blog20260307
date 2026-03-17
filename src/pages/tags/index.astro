@@ -25,7 +25,7 @@ const tags = [...tagMap.entries()]
   .map(([slug, { displayName, count }]) => ({ slug, displayName, count }));
 ---
 
-<BaseLayout title="タグ一覧 | Blog" description="全タグの一覧">
+<BaseLayout title="タグ一覧 | Blog" description="全タグの一覧" pageTitle="タグ一覧">
   <h1 class="text-2xl font-bold text-[var(--text-primary)] mb-8 page-title">タグ一覧</h1>
   {
     tags.length === 0 ? (
