@@ -380,6 +380,13 @@
   background: var(--accent-dim);
 }
 
+/* デスクトップ: サイドバーを避ける */
+@media (min-width: 1024px) {
+  .back-to-top {
+    right: 20rem;
+  }
+}
+
 /* モバイル対応 */
 @media (max-width: 640px) {
   .bio-key {
