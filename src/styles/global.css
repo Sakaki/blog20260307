@@ -196,7 +196,7 @@
 .bio-ascii {
   font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 0.72rem;
-  line-height: 1.32;
+  line-height: 1.4;
   color: var(--accent);
   margin: 0;
   padding: 0;
