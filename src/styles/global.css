@@ -327,6 +327,17 @@
   }
 }
 
+/* ===== Navbar width fix ===== */
+#site-header .navbar-start {
+  width: auto;
+  flex: 1;
+  min-width: 0;
+}
+#site-header .navbar-end {
+  width: auto;
+  flex-shrink: 0;
+}
+
 /* ===== Sticky Header compact mode ===== */
 .header--compact {
   padding-top: 0;
