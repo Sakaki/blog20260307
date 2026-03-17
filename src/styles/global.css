@@ -380,10 +380,25 @@
   background: var(--accent-dim);
 }
 
-/* デスクトップ: サイドバーを避ける */
+/* デスクトップ */
 @media (min-width: 1024px) {
   .back-to-top {
     right: 20rem;
+  }
+  .bio-prompt {
+    font-size: 0.9rem;
+  }
+  .bio-output {
+    font-size: 0.9rem;
+  }
+  .bio-key {
+    width: 6rem;
+  }
+  .bio-group-label {
+    font-size: 0.8rem;
+  }
+  .bio-link {
+    font-size: 0.8rem;
   }
 }
 
