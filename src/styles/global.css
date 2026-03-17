@@ -417,6 +417,12 @@
   .back-to-top {
     right: 20rem;
   }
+  .bio-ascii {
+    font-size: 0.85rem;
+  }
+  .bio-splash-sub {
+    font-size: 0.85rem;
+  }
   .bio-prompt {
     font-size: 0.9rem;
   }
