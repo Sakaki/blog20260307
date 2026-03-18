@@ -8,7 +8,7 @@ const allPosts = await getCollection("posts", ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 10);
 ---
 
-<BaseLayout title="Blog" description="最新の記事一覧">
+<BaseLayout title="sakaki333.dev" description="最新の記事一覧">
   <BioSection />
   <h1 class="text-2xl font-bold text-[var(--text-primary)] mb-8 page-title">最新の記事</h1>
   {
