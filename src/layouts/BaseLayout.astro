@@ -19,11 +19,16 @@ const { title, description, maxWidth = "max-w-4xl", pageTitle } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {description && <meta name="description" content={description} />}
     <link rel="alternate" type="application/rss+xml" title="sakaki333.dev" href="/rss.xml" />
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="sakaki333.dev" />
     {description && <meta property="og:description" content={description} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 - Not Found" description="ページが見つかりませんでした">
+  <div class="flex flex-col items-center justify-center py-20 text-center">
+    <p class="text-[var(--accent)] font-mono text-sm mb-4">$ curl -I this-page</p>
+    <h1 class="text-6xl font-bold text-[var(--text-primary)] mb-2 font-mono">404</h1>
+    <p class="text-[var(--text-secondary)] font-mono mb-8">
+      <span class="text-red-400">error:</span> page not found
+    </p>
+    <div
+      class="border border-[var(--border-color)] rounded p-6 bg-[var(--bg-secondary)] max-w-md w-full text-left font-mono text-sm"
+    >
+      <p class="text-[var(--text-secondary)] mb-2">
+        <span class="text-[var(--accent)]">$</span> ls ./available-pages/
+      </p>
+      <div class="space-y-1 ml-4">
+        <p>
+          <a href="/" class="text-[var(--link-color)] hover:underline">index.html</a>
+          <span class="text-[var(--text-secondary)] ml-2">// ホーム</span>
+        </p>
+        <p>
+          <a href="/posts" class="text-[var(--link-color)] hover:underline">posts/</a>
+          <span class="text-[var(--text-secondary)] ml-2">// 記事一覧</span>
+        </p>
+        <p>
+          <a href="/tags" class="text-[var(--link-color)] hover:underline">tags/</a>
+          <span class="text-[var(--text-secondary)] ml-2">// タグ一覧</span>
+        </p>
+        <p>
+          <a href="/rss.xml" class="text-[var(--link-color)] hover:underline">rss.xml</a>
+          <span class="text-[var(--text-secondary)] ml-2">// RSS フィード</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
