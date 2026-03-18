@@ -51,10 +51,10 @@ const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, 
         <h1 class="text-2xl font-bold text-[var(--text-primary)] mb-3 page-title">
           {title}
         </h1>
-        <p class="text-[var(--text-secondary)] text-sm mb-3 font-mono">
+        <div class="flex flex-col gap-1 text-[var(--text-secondary)] text-sm mb-3 font-mono">
           <span class="date-terminal">{formattedDate}</span>
-          {readingTime && <span class="ml-4 reading-time">{readingTime} min read</span>}
-        </p>
+          {readingTime && <span class="reading-time">{readingTime} min read</span>}
+        </div>
         {
           tags.length > 0 && (
             <div class="flex flex-wrap gap-2">
