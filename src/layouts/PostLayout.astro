@@ -6,6 +6,7 @@ import SidebarRecentPosts from "../components/SidebarRecentPosts.astro";
 import SidebarTags from "../components/SidebarTags.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
 import PostNavigation from "../components/PostNavigation.astro";
+import { formatDateJa } from "../utils/format-date";
 
 interface Heading {
   depth: number;
@@ -29,11 +30,7 @@ interface Props {
 
 const { frontmatter, headings = [], readingTime, prevPost, nextPost } = Astro.props;
 const { title, date, tags, description, heroImage } = frontmatter;
-const formattedDate = date.toLocaleDateString("ja-JP", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+const formattedDate = formatDateJa(date);
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const hasToc = tocHeadings.length > 0;
 const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, "");

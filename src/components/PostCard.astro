@@ -1,4 +1,6 @@
 ---
+import { formatDateJa } from "../utils/format-date";
+
 interface Props {
   title: string;
   date: Date;
@@ -8,11 +10,7 @@ interface Props {
 }
 
 const { title, date, description, tags, slug } = Astro.props;
-const formattedDate = date.toLocaleDateString("ja-JP", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+const formattedDate = formatDateJa(date);
 ---
 
 <div class="group relative post-card">

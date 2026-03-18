@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { formatDateJaShort } from "../utils/format-date";
 
 interface Props {
   currentSlug?: string;
@@ -25,11 +26,7 @@ const recentPosts = allPosts
               {post.data.title}
             </span>
             <span class="text-xs text-[var(--text-secondary)] opacity-60">
-              {post.data.date.toLocaleDateString("ja-JP", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
+              {formatDateJaShort(post.data.date)}
             </span>
           </a>
         </li>
