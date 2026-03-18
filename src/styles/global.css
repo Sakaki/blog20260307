@@ -138,6 +138,11 @@
   opacity: 0.7;
 }
 
+/* ===== CodeBlock row hover ===== */
+.codeblock-row:hover {
+  background: var(--bg-secondary);
+}
+
 /* ===== Reading time ===== */
 .reading-time::before {
   content: "$ wc -w → ";
