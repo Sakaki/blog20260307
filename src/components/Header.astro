@@ -55,6 +55,9 @@ const { pageTitle } = Astro.props;
         <li>
           <a href="/tags" class="text-[var(--text-secondary)] hover:text-[var(--accent)]">Tags</a>
         </li>
+        <li>
+          <a href="/rss.xml" class="text-[var(--text-secondary)] hover:text-[var(--accent)]">RSS</a>
+        </li>
       </ul>
     </div>
     <!-- デスクトップ: インラインナビゲーション -->
@@ -76,6 +79,12 @@ const { pageTitle } = Astro.props;
         class="btn btn-ghost btn-sm text-[var(--text-secondary)] hover:text-[var(--accent)]"
       >
         Tags
+      </a>
+      <a
+        href="/rss.xml"
+        class="btn btn-ghost btn-sm text-[var(--text-secondary)] hover:text-[var(--accent)]"
+      >
+        RSS
       </a>
     </nav>
   </div>
