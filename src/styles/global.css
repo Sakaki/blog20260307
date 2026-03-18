@@ -138,6 +138,13 @@
   opacity: 0.7;
 }
 
+/* ===== Reading time ===== */
+.reading-time::before {
+  content: "$ wc -w → ";
+  color: var(--accent);
+  opacity: 0.7;
+}
+
 /* ===== Tag chip ===== */
 .tag-chip {
   font-family: "JetBrains Mono", monospace;

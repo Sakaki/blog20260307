@@ -20,9 +20,10 @@ interface Props {
     heroImage?: string;
   };
   headings?: Heading[];
+  readingTime?: number;
 }
 
-const { frontmatter, headings = [] } = Astro.props;
+const { frontmatter, headings = [], readingTime } = Astro.props;
 const { title, date, tags, description, heroImage } = frontmatter;
 const formattedDate = date.toLocaleDateString("ja-JP", {
   year: "numeric",
@@ -46,8 +47,9 @@ const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, 
         <h1 class="text-2xl font-bold text-[var(--text-primary)] mb-3 page-title">
           {title}
         </h1>
-        <p class="text-[var(--text-secondary)] text-sm mb-3 date-terminal font-mono">
-          {formattedDate}
+        <p class="text-[var(--text-secondary)] text-sm mb-3 font-mono">
+          <span class="date-terminal">{formattedDate}</span>
+          {readingTime && <span class="ml-4 reading-time">{readingTime} min read</span>}
         </p>
         {
           tags.length > 0 && (
