@@ -1,0 +1,42 @@
+---
+interface PostLink {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  prevPost?: PostLink;
+  nextPost?: PostLink;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+{
+  (prevPost || nextPost) && (
+    <nav class="mt-8 border-t border-[var(--border-color)] pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        {prevPost && (
+          <a
+            href={`/posts/${prevPost.slug}`}
+            class="block p-3 border border-[var(--border-color)] rounded hover:border-[var(--accent)] transition-colors bg-[var(--bg-secondary)]"
+          >
+            <span class="text-xs text-[var(--text-secondary)] font-mono">{"<"} prev</span>
+            <p class="text-sm text-[var(--text-primary)] mt-1 font-semibold">{prevPost.title}</p>
+          </a>
+        )}
+      </div>
+      <div class="text-right">
+        {nextPost && (
+          <a
+            href={`/posts/${nextPost.slug}`}
+            class="block p-3 border border-[var(--border-color)] rounded hover:border-[var(--accent)] transition-colors bg-[var(--bg-secondary)]"
+          >
+            <span class="text-xs text-[var(--text-secondary)] font-mono">next {">"}</span>
+            <p class="text-sm text-[var(--text-primary)] mt-1 font-semibold">{nextPost.title}</p>
+          </a>
+        )}
+      </div>
+    </nav>
+  )
+}

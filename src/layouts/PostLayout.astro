@@ -5,6 +5,7 @@ import TableOfContentsSidebar from "../components/TableOfContentsSidebar.astro";
 import SidebarRecentPosts from "../components/SidebarRecentPosts.astro";
 import SidebarTags from "../components/SidebarTags.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
+import PostNavigation from "../components/PostNavigation.astro";
 
 interface Heading {
   depth: number;
@@ -22,9 +23,11 @@ interface Props {
   };
   headings?: Heading[];
   readingTime?: number;
+  prevPost?: { slug: string; title: string };
+  nextPost?: { slug: string; title: string };
 }
 
-const { frontmatter, headings = [], readingTime } = Astro.props;
+const { frontmatter, headings = [], readingTime, prevPost, nextPost } = Astro.props;
 const { title, date, tags, description, heroImage } = frontmatter;
 const formattedDate = date.toLocaleDateString("ja-JP", {
   year: "numeric",
@@ -82,6 +85,7 @@ const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, 
         <slot />
       </div>
       <RelatedPosts currentSlug={currentSlug} currentTags={tags} />
+      <PostNavigation prevPost={prevPost} nextPost={nextPost} />
     </article>
     {
       hasToc && (
