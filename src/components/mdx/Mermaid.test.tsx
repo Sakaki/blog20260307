@@ -77,7 +77,7 @@ describe("Mermaid コンポーネント", () => {
       await waitFor(() => {
         expect(mockInitialize).toHaveBeenCalledWith({
           startOnLoad: false,
-          theme: "default",
+          theme: "dark",
         });
       });
     });
