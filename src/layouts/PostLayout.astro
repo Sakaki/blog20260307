@@ -41,6 +41,9 @@ const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, 
   description={description}
   maxWidth={hasToc ? "max-w-6xl" : "max-w-4xl"}
   pageTitle={title}
+  ogType="article"
+  ogImage={heroImage}
+  publishedTime={date.toISOString()}
 >
   <div class={hasToc ? "lg:grid lg:grid-cols-[1fr_16rem] lg:gap-8" : ""}>
     <article class="max-w-none">
