@@ -4,6 +4,7 @@ import TableOfContents from "../components/TableOfContents.astro";
 import TableOfContentsSidebar from "../components/TableOfContentsSidebar.astro";
 import SidebarRecentPosts from "../components/SidebarRecentPosts.astro";
 import SidebarTags from "../components/SidebarTags.astro";
+import RelatedPosts from "../components/RelatedPosts.astro";
 
 interface Heading {
   depth: number;
@@ -80,6 +81,7 @@ const currentSlug = Astro.url.pathname.replace(/^\/posts\//, "").replace(/\/$/, 
       <div class="prose prose-base max-w-none">
         <slot />
       </div>
+      <RelatedPosts currentSlug={currentSlug} currentTags={tags} />
     </article>
     {
       hasToc && (
