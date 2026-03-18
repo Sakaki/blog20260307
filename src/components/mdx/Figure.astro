@@ -15,7 +15,15 @@ const displayCaption = caption ?? alt;
   <figcaption class="text-xs text-[var(--text-secondary)] mb-2 text-center">
     {displayCaption}
   </figcaption>
-  <img src={src} alt={alt} class="max-w-[80%] rounded border border-[var(--border-color)]" />
+  <div class="figure-img-wrapper relative max-w-[80%] w-full">
+    <div class="figure-skeleton skeleton h-48 w-full rounded"></div>
+    <img
+      src={src}
+      alt={alt}
+      class="figure-img rounded border border-[var(--border-color)] w-full opacity-0 transition-opacity duration-300"
+      loading="lazy"
+    />
+  </div>
   {
     sourceUrl && sourceName && (
       <p class="text-xs text-[var(--text-secondary)] opacity-60 mt-1 italic">
@@ -27,3 +35,10 @@ const displayCaption = caption ?? alt;
     )
   }
 </figure>
+
+<script>
+  import { initFigures } from "./figure-loading";
+
+  initFigures();
+  document.addEventListener("astro:page-load", initFigures);
+</script>
